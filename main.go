@@ -6,6 +6,12 @@ import (
 	"strings"
 )
 
+type person struct {
+	name    string
+	age     int
+	favfood []string
+}
+
 func mul(a int, b int) int {
 	return a * b
 }
@@ -114,5 +120,32 @@ func main() {
 	//// SWITCH
 	fmt.Println("candrinkSwitch: ", candrinkSwitch(17))
 	fmt.Println("candrinkSwitch2: ", candrinkSwitch2(37))
+
+	//// Pointers & Dereferencing
+	a := 2
+	b := a
+	a = 10
+	fmt.Println(b) // prints 2; b is deep copy of a
+
+	c := 2
+	d := &c
+	c = 10
+	fmt.Println(d)  // prints 0xc08809808; d is copy of ref to c
+	fmt.Println(*d) // prints 10; *d to deference
+	*d = 20
+	fmt.Println(c) // prints 20; 0xc08809808 got updated by *d
+
+	//// Map == dict
+	// [key type]val type
+	// value can't be other than what I defined, unlike python dict.
+	bio := map[string]string{"name": "hana", "age": "23"}
+	for key, val := range bio {
+		fmt.Println(key, val)
+	}
+
+	//// struct == python dict
+	foodlist := []string{"ramen", "boba"}
+	bio2 := person{name: "hana", age: 23, favfood: foodlist}
+	fmt.Println(bio2)
 
 }
