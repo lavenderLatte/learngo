@@ -4,7 +4,7 @@
 // to build the file; >> go build main.go --> this will create an excutable
 // >> go mod init
 // >> go mod tidy
-
+/************************************************************************************************/
 /* ––––––––––––––––––––– SUMMARY –––––––––––––––––––––
 
 - func main() {}  // entry point of file
@@ -62,7 +62,7 @@
 	bio2 := person{name: "hana", age: 23, favfood: foodlist}
 
 */
-
+/************************************************************************************************/
 package main // file name should match with package name
 
 import (
@@ -71,6 +71,7 @@ import (
 	"strings"
 
 	accounts "github.com/lavenderLatte/learngo/banking"
+	mydict "github.com/lavenderLatte/learngo/dict"
 )
 
 type person struct {
@@ -156,6 +157,7 @@ func candrinkSwitch2(age int) bool {
 	return false
 }
 
+/************************************************************************************************/
 // ENTRY POINT!!
 // this main func is mandatory
 // it's the entry point when I do >> go run main.go
@@ -182,7 +184,7 @@ func main() {
 	//// FUNCTIONS THAT TAKES ANY NUMBER OF STRING ARGS "variadic functions"
 	manyargs("hana", "ravi", "junco", "ninja", "scroll")
 
-	//// Forloop
+	//// FOR-LOOP
 	fmt.Println(sumAll(1, 2, 3, 4, 5))
 
 	//// IF, ELSE
@@ -221,7 +223,7 @@ func main() {
 	// 	zero(&x)              // &x returns a *int (pointer/addr to an int)
 	// 	fmt.Println(x)        // x is 0
 	// }
-
+	/************************************************************************************************/
 	//// MAP
 	// [key type]val type
 	// value can't be other than what I defined, unlike python dict.
@@ -230,6 +232,45 @@ func main() {
 		fmt.Println(key, val)
 	}
 
+	dictionary := mydict.Dictionary{}    // creating emtpy dict
+	dictionary["santo"] = "coffee"       // adding an item in dict
+	fmt.Println(dictionary["santo"])     // can use key to get value, but it's not sexy and error handling not possible
+	val, err := dictionary.Search("elm") // get the value if key exist, otherwise, print errNotFound error msg
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(val)
+	}
+	dictionary.Add("elm", "coffee")              // now add elm
+	fmt.Println(dictionary.Search("elm"))        // key exist
+	fmt.Println(dictionary.Add("elm", "coffee")) // prints errExist error message
+
+	err1 := dictionary.Update("elm", "coffee roasters")
+	if err1 == nil {
+		val1, _ := dictionary.Search(("elm"))
+		fmt.Println(val1) // now prints "coffee roasters"
+	}
+
+	err2 := dictionary.Delete("leon") // prints "key not found; can't delete"
+	if err2 != nil {
+		fmt.Println(err2)
+	} else {
+		fmt.Println("success!")
+	}
+	err3 := dictionary.Delete("santo") // prints "success!"
+	if err3 != nil {
+		fmt.Println(err3)
+	} else {
+		fmt.Println("success!")
+	}
+	key1, err4 := dictionary.Search("santo") // chekcing if santo is really deleted; prints "key not found"
+	if err4 == nil {
+		fmt.Println(key1)
+	} else {
+		fmt.Println(err4)
+	}
+
+	/************************************************************************************************/
 	//// STRUCT
 	// == object --> can make it have differnt type of value like python dict
 	// golang does not have class or objects only struct!
@@ -270,4 +311,5 @@ func main() {
 
 	// with toString() method, we can print out multiple info at the same time in a meaningful way
 	fmt.Println(raviAccount.String())
+	/************************************************************************************************/
 }
